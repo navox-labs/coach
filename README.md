@@ -70,10 +70,11 @@ npm install
 
 ### 2. Set up environment
 
-Create `.env.local` with your OpenAI API key:
+Create `.env.local`:
 
 ```
 OPENAI_API_KEY=sk-...
+COACH_ACCESS_KEY=your-secret-here   # optional for local dev, required in production
 ```
 
 ### 3. Start the coach API
@@ -102,6 +103,19 @@ cd coach && npm run proxy
 Open [http://localhost:3000/network](http://localhost:3000/network). Upload your CSV, then use the coach from within the Network UI.
 
 **Requirements:** Node.js 18+, OpenAI API key
+
+---
+
+## Access control
+
+The Coach API is protected by a shared passphrase to prevent unauthorized usage (OpenAI API calls cost money).
+
+- Set `COACH_ACCESS_KEY` in your environment variables (Vercel, `.env.local`, etc.)
+- When a user first opens Coach, they'll be prompted to enter the access key
+- The key is saved in their browser's localStorage — they only enter it once
+- If `COACH_ACCESS_KEY` is not set, the API is open (convenient for local development)
+
+**For testers:** DM for the access key.
 
 ---
 
