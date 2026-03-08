@@ -1,9 +1,11 @@
 import OpenAI from "openai";
 import { NextRequest, NextResponse } from "next/server";
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+function getOpenAI() {
+  return new OpenAI({
+    apiKey: process.env.COACH_OPENAI_API_KEY || process.env.OPENAI_API_KEY,
+  });
+}
 
 export async function POST(req: NextRequest) {
   const accessKey = process.env.COACH_ACCESS_KEY;
@@ -16,6 +18,7 @@ export async function POST(req: NextRequest) {
 
   const { messages, systemPrompt } = await req.json();
 
+  const openai = getOpenAI();
   const stream = await openai.responses.create({
     model: "gpt-4o",
     instructions: systemPrompt,
