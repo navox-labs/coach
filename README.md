@@ -73,7 +73,7 @@ npm install
 Create `.env.local`:
 
 ```
-OPENAI_API_KEY=sk-...
+COACH_OPENAI_API_KEY=sk-...         # or OPENAI_API_KEY (both work)
 COACH_ACCESS_KEY=your-secret-here   # optional for local dev, required in production
 ```
 
