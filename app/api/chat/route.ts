@@ -6,6 +6,14 @@ const openai = new OpenAI({
 });
 
 export async function POST(req: NextRequest) {
+  const accessKey = process.env.COACH_ACCESS_KEY;
+  if (accessKey) {
+    const provided = req.headers.get("x-coach-key");
+    if (provided !== accessKey) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+  }
+
   const { messages, systemPrompt } = await req.json();
 
   const stream = await openai.responses.create({
